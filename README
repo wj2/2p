@@ -1,1 +1,28 @@
-Under constructon
+The files:
+ROIplotting.py -- has functions to plot ROI over timecourse, currently standalone
+
+imagesequence.py -- used to convert tiff to npy, not mine
+
+plotting.py -- version of GUI that I haven't touched, only deals with 2D data that has a timecourse
+.
+plotting.py -- my version of the GUI that should be able to deal with 2D and 3D data in tif, npy, or tif series (with xml metadata) format.
+
+readSeq.py -- I wrote this to deal with the resolution tag error I got from the first set of 3D data you sent me. I resaved it as a tif series and then used this to convert all the tifs to npy and combine them into a single npy file.
+
+registration.py -- my version, working jitter correction for timecourse data (if we had metadata for this, it could easily just be done from there and would probably be faster)
+
+segment.py -- unmodified functions for segmentation of ROIs
+
+segment.py -- my version, has a couple modified algorithms, but nothing too new here. Includes watershed and label creation, this version is used heavily in plotting
+
+sta.py -- not used by me
+
+tifffile.py -- library for dealing with tif files, used widely
+
+xmlParser.py -- parser for xml metadata, used to read in a specific channel of a tif series, also returns microns per pixel and used in watershed of segmentation_alt to base structural requirements of ROIs on real distance (with no xml metadata, aspect ratio is used).
+
+To run just type python plotting.py. It'll prompt you for a path to your data, this can be in the form of xml metadata in the same directory as a tif series, a single tif file, or a npy file. 
+
+All of that data will be processed and eventually the GUI will pop up. It has five buttons, one from moving to previous ROI, next ROI, to use an ROI that isn't being used, and to delete an ROI that is being used -- used ROIs are fully covered, unused ROIs are only only outlined. 
+
+One concern is how slow the image processing actually is, though it does seem like this is mostly just due to watershedding and thus would be difficult to speed up. If you see any opportunities, please take them.
