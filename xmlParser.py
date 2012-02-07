@@ -18,6 +18,8 @@ def photonXMLGrabber(path):
     soup = bs.BeautifulStoneSoup(open(path))
     xRes,yRes,zRes = int(soup.find('key',key="linesPerFrame")['value']),int(soup.find('key',key="pixelsPerLine")['value']),len(soup('frame'))
     xMic,yMic = float(soup.find('key',key="micronsPerPixel_XAxis")['value']),float(soup.find('key',key="micronsPerPixel_YAxis")['value'])
+    zoom = float(soup.find('key',key="opticalZoom")['value'])
+    xMic,yMic = xMic/zoom, yMic/zoom
     xPosW,yPosW,zPosW = soup.findAll('key',key="positionCurrent_XAxis"),soup.findAll('key',key="positionCurrent_YAxis"),soup.findAll('key',key="positionCurrent_ZAxis")
     xPos,yPos,zChange = [],[],[]
     for i in range(len(xPos)):
